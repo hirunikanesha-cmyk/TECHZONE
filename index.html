@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> TECHZONE GADJET STORE </title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #3b82f6;
+            --price-color: #2563eb;
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --header-grad: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --btn-buy: #10b981;
+            --btn-cart: #f59e0b;
+        }
+
+        body.dark-mode {
+            --bg-light: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --primary: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            transition: 0.3s;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background: var(--header-grad);
+            color:gold;
+            padding: 25px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .controls {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            padding: 10px 15px;
+            border-radius: 25px;
+            border: none;
+            width: 280px;
+            outline: none;
+        }
+
+        #darkModeBtn {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 1px solid white;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 5px 8px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .category-title {
+            text-align: center;
+            margin: 50px 0 30px;
+            text-transform: uppercase;
+            color: var(--primary);
+            border-bottom: 2px solid var(--accent);
+            width: 100%;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover { transform: translateY(-8px); }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .stock-status {
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .in-stock { background: #dcfce7; color: #15803d; }
+        .low-stock { background: #fee2e2; color: #b91c1c; }
+        .offer-tag { background: #fef3c7; color: #92400e; }
+
+        .price {
+            font-size: 1.5rem;
+            color: var(--price-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: auto;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            flex: 1;
+            transition: 0.3s;
+        }
+
+        .btn-cart { background: var(--btn-cart); color: white; }
+        .btn-buy { background: var(--btn-buy); color: white; }
+        .btn:hover { opacity: 0.8; }
+
+        footer {
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+       .desc {
+    font-size: 0.85rem;
+    color:red;
+    margin: 10px 0;
+    line-height: 1.4;
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>TechZone Gadget Store</h1>
+    <div class="controls">
+        <input type="text" id="searchInput" class="search-box" placeholder="Search gadgets..." onkeyup="searchProducts()">
+        <button id="darkModeBtn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#special">Special Offers</a></li>
+            <li><a href="#new">New Arrivals</a></li>
+            <li><a href="#phones">Smart Phones</a></li>
+            <li><a href="#laptops">Laptops</a></li>
+            <li><a href="#audio">Audio & Headphones</a></li>
+            <li><a href="#watches">Smart Watches</a></li>
+            <li><a href="#gaming">Gaming Accessories</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="container">
+
+    <!-- 1. Special Offers (3 Items) -->
+    <section id="special">
+        <h2 class="category-title">🔥 Special Offers</h2>
+        <div class="product-grid">
+            <div class="card">
+                <span class="stock-status offer-tag">20% OFF</span>
+                <img src="SPEAKER.webp" alt="Speaker">
+                <h3>Smart Home Speaker</h3>
+                <p class="desc">High-quality sound with built-in voice assistant for a smarter home.</p>
+                <p class="price">LKR 15,500</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status offer-tag">Hot Deal</span>
+                <img src="images.jpg" alt="Mouse">
+                <h3>Ergonomic Mouse</h3>
+                <p class="desc">Designed for comfort and precision during long worrking hours.</p>
+                <p class="price">LKR 8,400</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status offer-tag">Bundle Pack</span>
+                <img src="power bank.jpg" alt="Powerbank">
+                <h3>20,000mAh Powerbank</h3>
+                <p class="desc">Fast charging portable power for all your mobile devices.</p>
+                <p class="price">LKR 10,800</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. New Arrivals (3 Items) -->
+    <section id="new">
+        <h2 class="category-title">✨ New Arrivals</h2>
+        <div class="product-grid">
+            <div class="card">
+                <span class="stock-status in-stock">Just In</span>
+                <img src="ipad.webp" alt="Tablet">
+                <h3>iPad Pro M4</h3>
+                <p class="desc">The thinnest and most powerful tablet with Ultra Retina XDR display.</p>
+                <p class="price">LKR 395,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status low-stock">Pre-Order</span>
+                <img src="nividia.jpeg" alt="GPU">
+                <h3>NVIDIA RTX 5090</h3>
+                <p class="desc">Experience next-gen gaming with ultimate ray tracing performance.</p>
+                <p class="price">LKR 650,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status in-stock">New</span>
+                <img src="sony.jpg" alt="Camera">
+                <h3>Sony Alpha ZV-E10 II</h3>
+                <p class="desc">Advanced 4K video quality perfect for vloggers and creators.</P>
+                <p class="price">LKR 320,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Smartphones (3 Items) -->
+    <section id="phones">
+        <h2 class="category-title">Smartphones</h2>
+        <div class="product-grid">
+            <div class="card">
+                <span class="stock-status in-stock">in Stock</span>
+                <img src="iphone.jpg" alt="iPhone 15">
+                <h3>iPhone 15 Pro</h3>
+                <p class="desc">A17 pro chip and Titanium design for pro-level performance.</p>
+                <p class="price">LKR 385,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status in-stock">in Stock</span>
+                <img src="samsung.jpg" alt="S24 Ultra">
+                <h3>Samsung S24 Ultra</h3>
+                <p class="desc">Integrated Galaxy AI with a 200MP camera and built-in S-pen.</p>
+                <p class="price">LKR 420,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status low-stock">Only 3 Left</span>
+                <img src="pixel.avif" alt="Pixel 8">
+                <h3>Google Pixel 8 Pro </h3>
+                <p class="desc">Smartest Pixel yet with AI-powered camera features.</p>
+                <p class="price">LKR 142,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Laptops (3 Items) -->
+    <section id="laptops">
+        <h2 class="category-title">Laptops</h2>
+        <div class="product-grid">
+            <div class="card">
+                <span class="stock-status in-stock">in Stock</span>
+                <img src="macbook.avif" alt="Macbook Air">
+                <h3>MacBook Air M3</h3>
+                <p class="desc">Incredibly thin and fast laptop with a silent, fanless design.</p>
+                <p class="price">LKR 415,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status in-stock">in Stock</span>
+                <img src="dell.png" alt="Dell XPS">
+                <h3>Dell XPS 13</h3>
+                <p class="desc">Premium performance with a stunning borderless InfinityEdge display.</p>
+                <p class="price">LKR 480,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status low-stock">Limited</span>
+                <img src="hp.avif" alt="HP Spectre">
+                <h3>HP Spectre x360</h3>
+                <p class="desc">Elegant touch-screen laptop with the perfect balance of style and speed.</p>
+                <p class="price">LKR 395,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Audio (3 Items) -->
+    <section id="audio">
+        <h2 class="category-title">Audio & Headphones</h2>
+        <div class="product-grid">
+            <div class="card">
+                <span class="stock-status in-stock">in Stock</span>
+                <img src="headphone.jpg" alt="Sony Headphones">
+                <h3>Sony WH-1000XM5</h3>
+                <P class="desc">Industry-leading noise canceling headphones with exceptional sound.</p>
+                <p class="price">LKR 115,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status in-stock">in Stock</span>
+                <img src="airpod.jpeg" alt="Airpods Pro">
+                <h3>AirPods Pro 2</h3>
+                <p class="desc">Pro-level active noise cancellation and personalized spatial audio.</p>
+                <p class="price">LKR 78,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status in-stock">in Stock</span>
+                <img src="jbl.jpg" alt="JBL Speaker">
+                <h3>JBL Flip 6</h3>
+                <p class="desc">Bold sound and deep bass in a portable, waterproof, and dustproof design.</p>
+                <p class="price">LKR 42,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Smartwatches (3 Items) -->
+    <section id="watches">
+        <h2 class="category-title">Smartwatches</h2>
+        <div class="product-grid">
+            <div class="card">
+                <span class="stock-status in-stock">in Stock</span>
+                <img src="apple watch.jpg" alt="Apple Watch">
+                <h3>Apple Watch Series 9</h3>
+                <p class="desc">Powerful S9 chip with a brighter display and magical double-tap gesture control.</p>
+                <p class="price">LKR 145,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status in-stock">in Stock</span>
+                <img src="galaxy.avif" alt="Galaxy Watch">
+                <h3>Galaxy Watch 6</h3>
+                <p class="desc">Advanced sleep tracking and wellness monitoring with a sleek, classic look.</p>
+                <p class="price">LKR 95,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status low-stock">Last Item</span>
+                <img src="garmin.webp" alt="Garmin Watch">
+                <h3>Garmin Fenix 7</h3>
+                <p class="desc">The ultimate rugged multisport GPS watch designed for elite performance.</p>
+                <p class="price">LKR 185,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Gaming (3 Items) -->
+    <section id="gaming">
+        <h2 class="category-title">Gaming Accessories</h2>
+        <div class="product-grid">
+            <div class="card">
+                <span class="stock-status in-stock">in Stock</span>
+                <img src="keyboard.png" alt="Razer Keyboard">
+                <h3>Razer Keyboard</h3>
+                <p class="desc">Mechanical gaming keyboard with immersive RGB lighting and clicky feedback.</p>
+                <p class="price">LKR 45,000</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status in-stock">in Stock</span>
+                <img src="logitec.jpg" alt="Logitech Mouse">
+                <h3>Logitech G Pro</h3>
+                <p class="desc">Ultra-lighweigh design used by world-class esports professionals.</p>
+                <p class="price">LKR 32,500</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <span class="stock-status low-stock">Popular</span>
+                <img src="ps5.webp" alt="PS5 DualSense">
+                <h3>PS5 DualSense</h3>
+                <p class="desc">Ultra-customizable high-performance controller for professional gaming.</p>
+                <p class="price">LKR 24,500</p>
+                <div class="btn-group">
+                    <button class="btn btn-cart">Add to Cart</button>
+                    <button class="btn btn-buy">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <div style="margin-bottom: 20px;">
+    <p>Contact Us: +94 76 255 2555</p>
+    <p>Email: Techzonestore@gmail.com</p>
+    <p>Address: NO-16/4,Boahahena, Buddiyagama,Weeraketiya.</p>
+</div>
+<hr style="width: 50%; border: 0.5px solidrba(255,255,255,0.1); margin: 20px auto:">
+<p>2026 TechZone Gadget Store.</p>
+</footer>
+
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const btn = document.getElementById('darkModeBtn');
+        btn.innerText = document.body.classList.contains('dark-mode') ? "☀️ Light Mode" : "🌙 Dark Mode";
+    }
+
+    function searchProducts() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let cards = document.getElementsByClassName('card');
+        for (let card of cards) {
+            let title = card.querySelector('h3').innerText.toLowerCase();
+            card.style.display = title.includes(input) ? "" : "none";
+        }
+    }
+</script>
+
+</body>
+</html>
